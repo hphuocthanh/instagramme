@@ -9,7 +9,7 @@ export default function Signup() {
   const { firebase } = useContext(FirebaseContext);
 
   const [username, setUsername] = useState('');
-  const [fullname, setFullname] = useState('');
+  const [fullName, setFullName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
   const [err, setErr] = useState('');
@@ -19,9 +19,37 @@ export default function Signup() {
     e.preventDefault();
 
     const usernameExists = doesUsernameExist(username);
-    //     try {
-    //     } catch (error) {}
-    //   };
+    if (!usernameExists.length) {
+      try {
+        const createdUserResult = await firebase
+          .auth()
+          .createUserWithEmailAndPassword(emailAddress, password);
+
+        // authentication
+        // -> email address & password & username (displayName)
+        await createdUserResult.user.updateProfile({
+          displayName: username
+        });
+
+        // firebase user collection (create a document)
+        await firebase.firestore().collection('users').add({
+          userId: createdUserResult.user.uid,
+          username: username.toLowerCase(),
+          fullName,
+          emailAddress: emailAddress.toLowerCase(),
+          dataCreated: Date.now()
+        });
+
+        history.push(ROUTES.DASHBOARD);
+      } catch (error) {
+        setFullName('');
+        setPassword('');
+        setEmailAddress('');
+        setErr(error.message);
+      }
+    } else {
+      setErr('The username is already taken. Please try another!');
+    }
   };
   useEffect(() => {
     document.title = 'Signup - Instagramme';
@@ -52,8 +80,8 @@ export default function Signup() {
               type="text"
               placeholder="Full name"
               className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
-              value={fullname}
-              onChange={({ target }) => setFullname(target.value)}
+              value={fullName}
+              onChange={({ target }) => setFullName(target.value)}
             />
             <input
               aria-label="Enter your email address"
