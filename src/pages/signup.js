@@ -32,13 +32,18 @@ export default function Signup() {
         });
 
         // firebase user collection (create a document)
-        await firebase.firestore().collection('users').add({
-          userId: createdUserResult.user.uid,
-          username: username.toLowerCase(),
-          fullName,
-          emailAddress: emailAddress.toLowerCase(),
-          dataCreated: Date.now()
-        });
+        await firebase
+          .firestore()
+          .collection('users')
+          .add({
+            userId: createdUserResult.user.uid,
+            username: username.toLowerCase(),
+            fullName,
+            following: ['2'],
+            followers: [],
+            emailAddress: emailAddress.toLowerCase(),
+            dataCreated: Date.now()
+          });
 
         history.push(ROUTES.DASHBOARD);
       } catch (error) {
