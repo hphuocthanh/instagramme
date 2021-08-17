@@ -2,6 +2,11 @@ module.exports = {
   future: {
     removeDeprecatedGapUtilities: false
   },
+  variants: {
+    extend: {
+      cursor: ['disabled']
+    }
+  },
   theme: {
     fill: (theme) => ({
       red: theme('colors.red.primary')

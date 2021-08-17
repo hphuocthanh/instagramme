@@ -6,7 +6,6 @@ import AddComment from './add-comment';
 
 export default function Comments({ docId, comments: allComments, posted, commentInput }) {
   const [comments, setComments] = useState(allComments);
-
   return (
     <>
       <div className="p-4 pt-4 pb-4">
@@ -28,7 +27,7 @@ export default function Comments({ docId, comments: allComments, posted, comment
         </p>
       </div>
       <AddComment
-        docid={docId}
+        docId={docId}
         comments={comments}
         setComments={setComments}
         commentInput={commentInput}
