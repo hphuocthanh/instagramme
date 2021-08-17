@@ -23,6 +23,9 @@ module.exports = {
       red: {
         primary: '#ed4956'
       }
+    },
+    fontSize: {
+      xxs: '0.625rem'
     }
   }
 };
