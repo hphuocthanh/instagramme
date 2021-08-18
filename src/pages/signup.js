@@ -18,7 +18,8 @@ export default function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    const usernameExists = doesUsernameExist(username);
+    const usernameExists = await doesUsernameExist(username);
+
     if (!usernameExists.length) {
       try {
         const createdUserResult = await firebase
@@ -53,6 +54,7 @@ export default function Signup() {
         setErr(error.message);
       }
     } else {
+      setPassword('');
       setErr('The username is already taken. Please try another!');
     }
   };

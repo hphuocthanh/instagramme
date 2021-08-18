@@ -30,7 +30,8 @@ module.exports = {
       }
     },
     fontSize: {
-      xxs: '0.625rem'
+      xxs: '0.625rem',
+      '3xl': '1.75rem'
     }
   }
 };
