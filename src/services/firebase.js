@@ -68,7 +68,7 @@ export async function updateLoggedInUserFollowing(
 
 export async function updateFollowedUserFollowers(
   profileDocId,
-  loggedInUserDocId,
+  loggedInUserId,
   isFollowingProfile
 ) {
   return firebase
@@ -77,8 +77,8 @@ export async function updateFollowedUserFollowers(
     .doc(profileDocId)
     .update({
       followers: isFollowingProfile
-        ? FieldValue.arrayRemove(loggedInUserDocId)
-        : FieldValue.arrayUnion(loggedInUserDocId)
+        ? FieldValue.arrayRemove(loggedInUserId)
+        : FieldValue.arrayUnion(loggedInUserId)
     });
 }
 
@@ -145,4 +145,18 @@ export async function isUserFollowingProfile(loggedInUserUsername, profileUserId
   console.log('response', response);
 
   return response.userId;
+}
+
+export async function toggleFollow(
+  isFollowingProfile,
+  activeUserDocId,
+  profileDocId,
+  profileUserId,
+  followingUserId
+) {
+  // 1st param: my doc id, 2st param: ldwook's doc id, 3rd param: do I follow ldwook?
+  await updateLoggedInUserFollowing(activeUserDocId, profileUserId, isFollowingProfile);
+
+  // 1st param: my doc id, 2st param: ldwook's doc id, 3rd param: do I follow ldwook?
+  await updateFollowedUserFollowers(profileDocId, followingUserId, isFollowingProfile);
 }
