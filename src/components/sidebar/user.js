@@ -11,12 +11,19 @@ export default function User({ username, fullName }) {
       <div className="flex items-center justitify-between col-span-1">
         <img
           className="rounded-full w-16 h-16 flex mr-3"
-          src={`/images/avatars/${username}.jpg`}
+          src={`/images/avatars/${
+            username === 'hphuocthanh' ||
+            username === 'chanh308' ||
+            username === 'ldwook' ||
+            username === 'bink'
+              ? username
+              : `cat`
+          }.jpg`}
           alt=""
         />
       </div>
       <div className="col-span-3">
-        <p className="font-bold text-sm">{username}</p>
+        <p className="font-semibold text-sm">{username}</p>
         <p className="text-sm">{fullName}</p>
       </div>
     </Link>

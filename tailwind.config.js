@@ -2,6 +2,10 @@ module.exports = {
   future: {
     removeDeprecatedGapUtilities: false
   },
+  purge: {
+    enabled: true,
+    content: ['./src/**/*.js', './src/**/**/*.js']
+  },
   variants: {
     extend: {
       cursor: ['disabled']

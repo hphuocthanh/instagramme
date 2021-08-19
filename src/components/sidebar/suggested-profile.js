@@ -28,7 +28,7 @@ export default function SuggestedProfile({
           alt=""
         />
         <Link to={`/p/${username}`}>
-          <p className="font-bold text-sm">{username}</p>
+          <p className="font-semibold text-sm">{username}</p>
         </Link>
       </div>
       <div>
